@@ -111,7 +111,7 @@ describe('Issue create', () => {
     });
    });
 
-   const { faker } = require('@faker-js/faker');
+   import { faker } from '@faker-js/faker';
    it.only('Should create an issue and validate it successfully,TEST3', () => {
     cy.get('[data-testid="modal:issue-create"]').within(() => {
       cy.get('[data-testid="select:type"]').click();
