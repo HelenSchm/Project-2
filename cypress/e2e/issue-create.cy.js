@@ -105,45 +105,44 @@ describe('Issue create', () => {
         .find('p').contains('Bug');
       //Assert that correct type icon is visible
       cy.get('[data-testid="icon:bug"]').should('be.visible');
-      });
+    });
   });
-  
+
   it('Should create another task and validate it successfully', () => {
-        let title = faker.lorem.word();
-        let description = faker.lorem.sentence();
-        
-        cy.get('[data-testid="modal:issue-create"]').within(() => {
-          cy.get('.ql-editor').type(description);
-          cy.get('input[name="title"]').type(title);
-          cy.get('[data-testid="select:reporterId"]').click();
-          cy.get('[data-testid="select-option:Baby Yoda"]').click();
-          cy.get('[data-testid="select:priority"]').click();
-          cy.get('[data-testid="select-option:Low"]').click();
-    
-          //assert all values are correctly visible
-          cy.get('input[name="title"]').should('have.value', title);
-          cy.get('.ql-editor').should('have.text', description);
-          cy.get('[data-testid="select:type"]').should('have.text', 'Task');
-          cy.get('[data-testid="select:reporterId"]').should('have.text', 'Baby Yoda');
-          cy.get('[data-testid="select:priority"]').should('have.text', 'Low');
-          cy.get('button[type="submit"]').click();
-        });
-    
-        //Assert that modal window is closed and successful message is visible
-        cy.get('[data-testid="modal:issue-create"]').should('not.exist');
-        cy.contains('Issue has been successfully created.').should('be.visible');
-        cy.reload();
-        cy.contains('Issue has been successfully created.').should('not.exist');
-    
-        //Assert than only one list with name Backlog is visible and do steps inside of it
-        cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
-          //Assert that this list contains 5 issues and first element with tag p has specified text
-          cy.get('[data-testid="list-issue"]')
-            .should('have.length', '5').first()
-            .find('p').contains(title);
-          //Assert that correct avatar and type icon are visible
-          cy.get('[data-testid="icon:task"]').should('be.visible');
-        });
-      }); 
+    let title = faker.lorem.word();
+    let description = faker.lorem.sentence();
+
+    cy.get('[data-testid="modal:issue-create"]').within(() => {
+      cy.get('.ql-editor').type(description);
+      cy.get('input[name="title"]').type(title);
+      cy.get('[data-testid="select:reporterId"]').click();
+      cy.get('[data-testid="select-option:Baby Yoda"]').click();
+      cy.get('[data-testid="select:priority"]').click();
+      cy.get('[data-testid="select-option:Low"]').click();
+
+      //assert all values are correctly visible
+      cy.get('input[name="title"]').should('have.value', title);
+      cy.get('.ql-editor').should('have.text', description);
+      cy.get('[data-testid="select:type"]').should('have.text', 'Task');
+      cy.get('[data-testid="select:reporterId"]').should('have.text', 'Baby Yoda');
+      cy.get('[data-testid="select:priority"]').should('have.text', 'Low');
+      cy.get('button[type="submit"]').click();
+    });
+
+    //Assert that modal window is closed and successful message is visible
+    cy.get('[data-testid="modal:issue-create"]').should('not.exist');
+    cy.contains('Issue has been successfully created.').should('be.visible');
+    cy.reload();
+    cy.contains('Issue has been successfully created.').should('not.exist');
+
+    //Assert than only one list with name Backlog is visible and do steps inside of it
+    cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
+      //Assert that this list contains 5 issues and first element with tag p has specified text
+      cy.get('[data-testid="list-issue"]')
+        .should('have.length', '5').first()
+        .find('p').contains(title);
+      //Assert that correct avatar and type icon are visible
+      cy.get('[data-testid="icon:task"]').should('be.visible');
+    });
+  });
 });
-      
